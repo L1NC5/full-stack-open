@@ -7,14 +7,26 @@ const Statistics = ({ good, neutral, bad }) => {
   return (
     <>
       <h2>Statistics:</h2>
-      <span>Good: {good}</span>
-      <span>Neutral: {neutral}</span>
-      <span>Bad: {bad}</span>
-      <span>Average: {(good - bad) / (good + neutral + bad)}</span>
-      <span>Positive: {(good / (good + neutral + bad)) * 100}%</span>
+      <StatisticLine text={"Good"} value={good} />
+      <StatisticLine text={"Neutral"} value={neutral} />
+      <StatisticLine text={"Bad"} value={bad} />
+      <StatisticLine
+        text={"Average"}
+        value={(good - bad) / (good + neutral + bad)}
+      />
+      <StatisticLine
+        text={"Positive"}
+        value={(good / (good + neutral + bad)) * 100 + "%"}
+      />
     </>
   );
 };
+
+const StatisticLine = ({ text, value }) => (
+  <span>
+    {text}: {value}
+  </span>
+);
 
 const Button = ({ onClick, children }) => {
   return <button onClick={onClick}>{children}</button>;

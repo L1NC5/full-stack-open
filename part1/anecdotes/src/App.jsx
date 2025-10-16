@@ -12,11 +12,28 @@ const App = () => {
     "The only way to go fast, is to go well.",
   ];
 
+  let emptyArray = new Uint8Array(8);
+  const [votes, setVotes] = useState(emptyArray);
   const [selected, setSelected] = useState(0);
+  const [highestVoted, setHighestVoted] = useState(0);
+
+  const handleVote = () => {
+    let currentVotes = [...votes];
+    currentVotes[selected] = votes[selected] + 1;
+    setVotes(currentVotes);
+    if (votes[highestVoted] < currentVotes[selected]) {
+      setHighestVoted(selected);
+    }
+  };
 
   return (
     <>
+      <h1>Anecdote of the day</h1>
       <div>{anecdotes[selected]}</div>
+      <span style={{ display: "block", marginBlock: "1rem" }}>
+        has {votes[selected]} votes.
+      </span>
+      <button onClick={() => handleVote()}>Vote</button>
       <button
         onClick={() =>
           setSelected(Math.floor(Math.random() * anecdotes.length))
@@ -24,6 +41,8 @@ const App = () => {
       >
         Next anectode
       </button>
+      <h1>Anecdote with most votes</h1>
+      <div>{anecdotes[highestVoted]}</div>
     </>
   );
 };

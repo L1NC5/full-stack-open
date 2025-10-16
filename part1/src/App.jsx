@@ -11,7 +11,13 @@ const App = () => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: 'flex-start'}}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+      }}
+    >
       <h1>Give us your feedback!</h1>
       <h2>How was your experience at Unicafe?</h2>
       <div style={{ display: "flex", gap: "1rem" }}>
@@ -23,6 +29,8 @@ const App = () => {
       <span>Good: {good}</span>
       <span>Neutral: {neutral}</span>
       <span>Bad: {bad}</span>
+      <span>Average: {(good - neutral) / (good + neutral + bad)}</span>
+      <span>Positive: {(good / (good + neutral + bad)) * 100}%</span>
     </div>
   );
 };

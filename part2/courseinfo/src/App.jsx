@@ -8,13 +8,20 @@ const Part = ({ part }) => (
     {part.name} {part.exercises}
   </p>
 );
-// const Total = (props) => <p>Number of exercises {props.total}</p>;
+const Total = ({ parts }) => (
+  <p>
+    Number of exercises {parts.reduce((acc, obj) => acc + obj.exercises, 0)}
+  </p>
+);
 
 const Course = ({ course }) => (
   <>
     {course.name && <Header name={course.name} />}
     {course.parts && course.parts.length > 0 && (
-      <Content parts={course.parts} />
+      <>
+        <Content parts={course.parts} />
+        <Total parts={course.parts} />
+      </>
     )}
   </>
 );

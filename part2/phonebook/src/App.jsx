@@ -24,12 +24,29 @@ const App = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const alreadyPresent = persons.some((item) => item.name === newPerson.name);
-    if (alreadyPresent) {
-      alert(`${newPerson.name} is already added to phonebook`);
+    const matchingPerson = persons.find(
+      (person) => person.name === newPerson.name,
+    );
+    if (matchingPerson) {
+      if (
+        window.confirm(
+          `${newPerson.name} name already exists: do you want to update the phone number?`,
+        )
+      ) {
+        const updatedPerson = { ...matchingPerson, ...newPerson };
+        personService
+          .update(matchingPerson.id, updatedPerson)
+          .then(
+            setPersons(
+              persons.map((person) =>
+                person.id !== updatedPerson.id ? person : updatedPerson,
+              ),
+            ),
+          );
+      }
       return;
     }
-    personService.createNew(newPerson).then((response) => {
+    personService.create(newPerson).then((response) => {
       setPersons(persons.concat(response));
     });
   };

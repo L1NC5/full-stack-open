@@ -34,6 +34,16 @@ const App = () => {
     });
   };
 
+  const handleDelete = (person) => {
+    if (window.confirm(`Are you sure you want to delete ${person.name}?`)) {
+      personService.remove(person.id).then((response) => {
+        setPersons((prevPersons) =>
+          prevPersons.filter((prevPerson) => prevPerson.id !== response.id),
+        );
+      });
+    }
+  };
+
   useEffect(() => {
     personService.getAll().then((response) => {
       setPersons(response);
@@ -51,7 +61,13 @@ const App = () => {
         handleSubmit={handleSubmit}
       />
       <h2>Numbers</h2>
-      {persons && <PersonList persons={persons} filterBy={filterBy} />}
+      {persons && (
+        <PersonList
+          persons={persons}
+          filterBy={filterBy}
+          handleDelete={handleDelete}
+        />
+      )}
     </div>
   );
 };

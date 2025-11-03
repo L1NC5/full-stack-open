@@ -44,9 +44,9 @@ const App = () => {
                 person.id !== updatedPerson.id ? person : updatedPerson,
               ),
             );
-            setNotificationMessage(
-              `${updatedPerson.name}'s number updated correctly`,
-            );
+            setNotificationMessage({
+              message: `${updatedPerson.name}'s number updated correctly`,
+            });
             setTimeout(() => {
               console.log(notificationMessage);
               setNotificationMessage("");
@@ -57,7 +57,7 @@ const App = () => {
     }
     personService.create(newPerson).then((response) => {
       setPersons(persons.concat(response));
-      setNotificationMessage(`Added ${response.name}`);
+      setNotificationMessage({ message: `Added ${response.name}` });
       setTimeout(() => {
         console.log(notificationMessage);
         setNotificationMessage("");
@@ -67,11 +67,25 @@ const App = () => {
 
   const handleDelete = (person) => {
     if (window.confirm(`Are you sure you want to delete ${person.name}?`)) {
-      personService.remove(person.id).then((response) => {
-        setPersons((prevPersons) =>
-          prevPersons.filter((prevPerson) => prevPerson.id !== response.id),
-        );
-      });
+      personService
+        .remove(person.id)
+        .then((response) => {
+          setPersons((prevPersons) =>
+            prevPersons.filter((prevPerson) => prevPerson.id !== response.id),
+          );
+        })
+        .catch(() => {
+          setNotificationMessage({
+            message: `Information about ${person.name} has already been deleted`,
+            variant: "error",
+          });
+          setPersons((prevPersons) =>
+            prevPersons.filter((prevPerson) => prevPerson.id !== person.id),
+          );
+          setTimeout(() => {
+            setNotificationMessage("");
+          }, 5000);
+        });
     }
   };
 
@@ -85,7 +99,10 @@ const App = () => {
     <div>
       <h1>Phonebook</h1>
       {notificationMessage && (
-        <NotificationMessage message={notificationMessage} />
+        <NotificationMessage
+          message={notificationMessage.message}
+          variant={notificationMessage.variant}
+        />
       )}
       <Filter filterBy={filterBy} handleFilterBy={handleFilterBy} />
       <h2>Add new contact</h2>

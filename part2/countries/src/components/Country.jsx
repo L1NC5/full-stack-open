@@ -1,3 +1,5 @@
+import Weather from "./Weather";
+
 const Country = ({ data }) => {
   return (
     <>
@@ -10,7 +12,7 @@ const Country = ({ data }) => {
           }}
         >
           <b>Capital:</b>
-          {data.capital.join(", ")}
+          {data.capital[0]}
         </span>
         <span
           style={{
@@ -35,6 +37,7 @@ const Country = ({ data }) => {
         ))}
       </ul>
       <img src={data.flags.png} alt={data.flags.alt} />
+      <Weather city={data.capital[0]} coordinates={data.capitalInfo.latlng} />
     </>
   );
 };

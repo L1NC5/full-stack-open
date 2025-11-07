@@ -48,7 +48,6 @@ const App = () => {
               message: `${updatedPerson.name}'s number updated correctly`,
             });
             setTimeout(() => {
-              console.log(notificationMessage);
               setNotificationMessage("");
             }, 5000);
           });
@@ -59,7 +58,6 @@ const App = () => {
       setPersons(persons.concat(response));
       setNotificationMessage({ message: `Added ${response.name}` });
       setTimeout(() => {
-        console.log(notificationMessage);
         setNotificationMessage("");
       }, 5000);
     });

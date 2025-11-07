@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
+import Country from "./Country";
 
 const CountriesList = ({ allCountries, countryFilter }) => {
   const [filteredCountries, setFilteredCountries] = useState([]);
+
+  const handleCountrySelection = (country) => {
+    setFilteredCountries([country]);
+  };
 
   useEffect(() => {
     const currentMatches = allCountries.filter((country) =>
@@ -21,53 +26,19 @@ const CountriesList = ({ allCountries, countryFilter }) => {
           style={{ display: "flex", flexDirection: "column", gap: "0.125rem" }}
         >
           {filteredCountries.map((country) => (
-            <li key={country.name.common}>{country.name.common}</li>
+            <li key={country.name.common}>
+              {country.name.common}
+              <button onClick={() => handleCountrySelection(country)}>
+                Show details
+              </button>
+            </li>
           ))}
         </ul>
       );
     }
     if (filteredCountries.length === 1) {
       const country = filteredCountries[0];
-      return (
-        <>
-          <h1>{country.name.common}</h1>
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}
-          >
-            <span
-              style={{
-                display: "flex",
-                gap: "0.125rem",
-              }}
-            >
-              <b>Capital:</b>
-              {country.capital.join(", ")}
-            </span>
-            <span
-              style={{
-                display: "flex",
-                gap: "0.125rem",
-              }}
-            >
-              <b>Area:</b>
-              {`${country.area}km`}
-            </span>
-          </div>
-          <h2>Languages</h2>
-          <ul
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.125rem",
-            }}
-          >
-            {Object.values(country.languages).map((language) => (
-              <li key={language}>{language}</li>
-            ))}
-          </ul>
-          <img src={country.flags.png} alt={country.flags.alt} />
-        </>
-      );
+      return <Country data={country} />;
     }
     if (filteredCountries.length === 0)
       return <span>No matching countries found, specify another filter</span>;

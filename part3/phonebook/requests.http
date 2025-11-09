@@ -15,8 +15,19 @@ GET {{endpoint}}/api/persons/1 HTTP/1.1
 
 GET {{endpoint}}/api/persons/0 HTTP/1.1
 
+### Create a new person [POST]
+
+POST {{endpoint}}/api/persons HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Mario Rossi",
+  "number": "333-3333333"
+}
+
 ### DELETE a person
-DELETE {{endpoint}}/api/persons/1
+
+DELETE {{endpoint}}/api/persons/1 HTTP/1.1
 
 ### GET API informations
 

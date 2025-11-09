@@ -43,6 +43,22 @@ app.get("/api/persons/:id", (request, response) => {
   }
 });
 
+// Create a new person [POST]
+const randomId = () => Math.round(Math.random() * 3000000);
+
+app.post("/api/persons", (request, response) => {
+  const body = request.body;
+
+  const person = {
+    id: randomId(),
+    name: body.name,
+    number: body.number,
+  };
+
+  persons = persons.concat(person);
+  response.json(person);
+});
+
 // DELETE a person
 app.delete("/api/persons/:id", (request, response) => {
   const id = request.params.id;

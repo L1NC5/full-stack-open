@@ -15,6 +15,9 @@ GET {{endpoint}}/api/persons/1 HTTP/1.1
 
 GET {{endpoint}}/api/persons/0 HTTP/1.1
 
+### DELETE a person
+DELETE {{endpoint}}/api/persons/1
+
 ### GET API informations
 
 GET {{endpoint}}/info HTTP/1.1

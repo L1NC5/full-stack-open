@@ -6,3 +6,7 @@
 ### GET all persons
 
 GET {{endpoint}}/api/persons HTTP/1.1
+
+### GET API informations
+
+GET {{endpoint}}/info HTTP/1.1

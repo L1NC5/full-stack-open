@@ -26,10 +26,24 @@ const persons = [
   },
 ];
 
+// GET all persons
 app.get("/api/persons", (request, response) => {
   response.json(persons);
 });
 
+// GET a single person
+app.get("/api/persons/:id", (request, response) => {
+  const id = request.params.id;
+  const person = persons.find((person) => person.id === id);
+
+  if (person) {
+    response.json(person);
+  } else {
+    response.status(404).end();
+  }
+});
+
+// GET api's info
 app.get("/info", (request, response) => {
   const personsCount = persons.length;
   const currentDate = new Date();
@@ -40,6 +54,7 @@ app.get("/info", (request, response) => {
   );
 });
 
+// Launch api
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

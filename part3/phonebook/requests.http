@@ -7,6 +7,14 @@
 
 GET {{endpoint}}/api/persons HTTP/1.1
 
+### GET a single person
+
+GET {{endpoint}}/api/persons/1 HTTP/1.1
+
+### GET a single person -- Test correct error handling
+
+GET {{endpoint}}/api/persons/0 HTTP/1.1
+
 ### GET API informations
 
 GET {{endpoint}}/info HTTP/1.1

@@ -49,6 +49,24 @@ const randomId = () => Math.round(Math.random() * 3000000);
 app.post("/api/persons", (request, response) => {
   const body = request.body;
 
+  if (!body.name) {
+    return response.status(400).json({
+      error: "Person's name missing",
+    });
+  }
+
+  if (!body.number) {
+    return response.status(400).json({
+      error: "Person's number missing",
+    });
+  }
+
+  if (persons.find((person) => person.name === body.name)) {
+    return response.status(400).json({
+      error: "Person's name must be unique",
+    });
+  }
+
   const person = {
     id: randomId(),
     name: body.name,

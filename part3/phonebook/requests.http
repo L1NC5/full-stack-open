@@ -25,6 +25,24 @@ Content-Type: application/json
   "number": "333-3333333"
 }
 
+### Create a new person [POST] -- Test name error handling
+
+POST {{endpoint}}/api/persons HTTP/1.1
+Content-Type: application/json
+
+{
+  "number": "333-3333333"
+}
+
+### Create a new person [POST] -- Test number error handling
+
+POST {{endpoint}}/api/persons HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Mario Rossi"
+}
+
 ### DELETE a person
 
 DELETE {{endpoint}}/api/persons/1 HTTP/1.1
